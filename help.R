@@ -1,7 +1,9 @@
 library(tidyverse)
 library(readxl)
 
-gdp_data <- read_csv("Tourism_propotion_GDP/indicator-891-data-2021-UNWTO.csv")
+load("Data/help_dataset.RData")
+
+
 gdp_data_1 <- gdp_data %>%
   select(GeoAreaName, TimePeriod, Value)
 gdp_data_2 <- gdp_data_1 %>%
@@ -18,7 +20,7 @@ gdp_data_3 <- gdp_data_2 %>%
                                    mean_rate >= 5 ~ "More-Tourism"))
 
 
-suppressWarnings(continent_data <- read_csv("countryContinent.csv"))
+
 
 continent_data <- continent_data %>%
   select(GeoAreaName, continent, sub_region)
@@ -31,7 +33,7 @@ mixed_country_data_gdp <- gdp_data_3 %>%
   left_join(continent_data, by = "GeoAreaName") %>%
   filter(sub_region == "Eastern Asia" | sub_region == "South-Eastern Asia" | continent == "Europe" | continent == "Oceania" | sub_region == "Northern America")
 
-flight_data <- read_csv("Flighttime.csv")
+
 
 flight_data_2 <- flight_data %>%
   separate(Flighttime, c("hour","minute"), -2)
@@ -53,7 +55,7 @@ flight_data_final <- flight_data_3 %>%
 
 flight_data_final <- rename(flight_data_final, GeoAreaName = Country)
 
-suppressWarnings(continent_data <- read_csv("countryContinent.csv"))
+
 
 continent_data <- continent_data %>%
   select(GeoAreaName, continent, sub_region)
@@ -64,8 +66,7 @@ mixed_country_data_flight <- flight_data_final %>%
 
 library(tidyverse)
 library(lubridate)
-corona_data_Global <- read_csv("Corona_Data_in_Johns_Hopkins/COVID-19-master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
-corona_data_US <- read_csv("Corona_Data_in_Johns_Hopkins/COVID-19-master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv")
+
 
 corona_data_Global_2 <- corona_data_Global %>%
   pivot_longer(cols = 5:457,
@@ -148,7 +149,7 @@ corona_data_final <- corona_data_mid %>%
   filter(Country != "United States") %>%
   rbind(corona_data_mid_US_2)
 
-pop_data <- read_csv("population_by_country_2020.csv")
+
 pop_data <- pop_data %>%
   select(Country, `Population (2020)`)
 
@@ -166,7 +167,7 @@ mixed_corona_data_2 <- mixed_corona_data %>%
 
 mixed_country_data_corona <- rename(mixed_corona_data_2, GeoAreaName = Country)
 
-suppressWarnings(continent_data <- read_csv("countryContinent.csv"))
+
 
 continent_data <- continent_data %>%
   select(GeoAreaName, continent, sub_region)
@@ -221,4 +222,4 @@ plot(cluster_2.subset_2[c("statistics", "flight_time")], col = results$cluster)
 cluster_2.subset_fixed <- as.data.frame(cluster_2.subset)
 cluster_2.subset_fixed <- cluster_2.subset_fixed[,-6]
 
-save.image("Shiny/Data/help.RData")
+save.image("C:/Users/dlgus/Desktop/Shiny/Data/help_dataset.RData")
