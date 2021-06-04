@@ -1,6 +1,6 @@
 library(tidyverse)
 library(readxl)
-setwd("C:/Users/dlgus/Desktop/Data")
+
 gdp_data <- read_csv("Tourism_propotion_GDP/indicator-891-data-2021-UNWTO.csv")
 gdp_data_1 <- gdp_data %>%
   select(GeoAreaName, TimePeriod, Value)
@@ -220,4 +220,5 @@ plot(cluster_2.subset_2[c("statistics", "flight_time")], col = results$cluster)
 
 cluster_2.subset_fixed <- as.data.frame(cluster_2.subset)
 cluster_2.subset_fixed <- cluster_2.subset_fixed[,-6]
-cluster_2.subset_fixed
+
+save.image("Shiny/Data/help.RData")
